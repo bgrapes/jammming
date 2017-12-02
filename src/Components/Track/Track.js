@@ -6,11 +6,12 @@ class Track extends React.Component {
     super(props);
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   renderAction() {
     if (this.props.isRemoval) {
-      return <span>-</span>;
+      return <span onClick={this.removeTrack}>-</span>;
     } else {
       return <span onClick={this.addTrack}>+</span>;
     }
@@ -19,6 +20,10 @@ class Track extends React.Component {
   addTrack(event) {
     this.props.onAdd(this.props.track);
     event.preventDefault();
+  }
+
+  removeTrack() {
+    this.props.onRemove(this.props.track); 
   }
 
   render() {

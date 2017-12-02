@@ -23,6 +23,7 @@ class App extends React.Component {
     }
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track) {
@@ -30,6 +31,14 @@ class App extends React.Component {
     if (this.state.playlistTracks.indexOf(track) === -1) {
       this.setState({
         playlistTracks: this.state.playlistTracks.concat(track) // Add track to the playlist.
+      });
+    }
+  }
+
+  removeTrack(track) {
+    if (this.state.playlistTracks.indexOf(track) === 1) {
+      this.setState({
+        playlistTracks: this.state.playlistTracks.filter(track) // Add track to the playlist.
       });
     }
   }
@@ -42,7 +51,7 @@ class App extends React.Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-            <Playlist playlistName={this.playlistName} playlistTracks={this.state.playlistTracks} />
+            <Playlist playlistName={this.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
           </div>
         </div>
       </div>
