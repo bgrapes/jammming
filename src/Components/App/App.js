@@ -22,25 +22,32 @@ class App extends React.Component {
       }]
     }
 
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack(track) {
+    // Check if the track is in the array. If -1 is returned, then it's not in the array.
+    if (this.state.playlistTracks.indexOf(track) === -1) {
+      this.setState({
+        playlistTracks: this.state.playlistTracks.concat(track) // Add track to the playlist.
+      });
+    }
   }
 
   render() {
-
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <Playlist playlistName={this.playlistName} playlistTracks={this.state.playlistTracks} />
           </div>
         </div>
       </div>
     );
-
   }
-
 }
 
 export default App;
