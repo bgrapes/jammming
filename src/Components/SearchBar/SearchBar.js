@@ -11,6 +11,8 @@ class SearchBar extends React.Component {
 
     this.search = this.search.bind(this);
     this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleClearPlaceholder = this.handleClearPlaceholder.bind(this);
+    this.handleReplacePlaceholder = this.handleReplacePlaceholder.bind(this);
   }
 
   search() {
@@ -24,10 +26,22 @@ class SearchBar extends React.Component {
     });
   }
 
+  handleClearPlaceholder(event) {
+    event.preventDefault();
+    event.target.placeholder = '';
+  }
+
+  handleReplacePlaceholder(event) {
+    event.preventDefault();
+    if (event.target.placeholder === '') {
+      event.target.placeholder = 'Enter A Song, Album, or Artist';
+    }
+  }
+
   render() {
     return (
       <div className="SearchBar">
-        <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} defaultValue={this.props.searchTerm} />
+        <input placeholder="Enter A Song, Album, or Artist" onFocus={this.handleClearPlaceholder} onBlur={this.handleReplacePlaceholder} onChange={this.handleTermChange} defaultValue={this.props.searchTerm} />
         <a onClick={this.search}>SEARCH</a>
       </div>
     )
