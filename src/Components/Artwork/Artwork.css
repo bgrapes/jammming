@@ -1,0 +1,7 @@
+.Artwork {
+  padding-right: 15px;
+}
+
+.clickable img {
+  cursor: pointer;
+}

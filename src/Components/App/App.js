@@ -21,6 +21,7 @@ class App extends React.Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.viewAlbum = this.viewAlbum.bind(this);
   }
 
   addTrack(track) {
@@ -70,6 +71,14 @@ class App extends React.Component {
     });
   }
 
+  viewAlbum(id, albumName, albumImage) {
+    Spotify.viewAlbum(id, albumName, albumImage).then(tracks => {
+      this.setState({
+        searchResults: tracks
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -77,7 +86,7 @@ class App extends React.Component {
         <div className="App">
           <SearchBar onSearch={this.search} searchTerm={this.state.searchTerm} />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} viewAlbum={this.viewAlbum} />
             <Playlist playlistName={this.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} />
           </div>
         </div>

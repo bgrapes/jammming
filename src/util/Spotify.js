@@ -1,5 +1,5 @@
 const clientId = 'd2d8945c94ca42439529d8fcd5696ae8';
-const redirectUri = 'http://jammming.bg.surge.sh';
+const redirectUri = 'http://localhost:3000/';
 let accessToken = '';
 
 const Spotify = {
@@ -36,24 +36,56 @@ const Spotify = {
     const fetchURL = `https://api.spotify.com/v1/search?type=track&q=${term}`;
     const headers = {headers: {Authorization: `Bearer ${accessToken}`}};
 
-    return fetch(fetchURL, headers).then(response => {
-        Spotify.handleErrors(response);
-        return response.json();
-      })
+    return fetch(fetchURL, headers)
 
-      .then(jsonResponse => {
-        if (jsonResponse.tracks.items) {
-          return jsonResponse.tracks.items.map(track => {
-            return {
-              id: track.id,
-              name: track.name,
-              artist: track.artists[0].name,
-              album: track.album.name,
-              uri: track.uri
-            }
-          })
-        } else return [];
+    .then(response => {
+      Spotify.handleErrors(response);
+      return response.json();
+    })
+
+    .then(jsonResponse => {
+      if (jsonResponse.tracks.items) {
+        return jsonResponse.tracks.items.map(track => {
+          return {
+            id: track.id,
+            name: track.name,
+            artist: track.artists[0].name,
+            album: track.album.name,
+            uri: track.uri,
+            image: track.album.images[2].url,
+            albumId: track.album.id,
+            clickable: true
+          }
+        })
+      } else return [];
+    })
+  },
+
+  viewAlbum(id, albumName, albumImage) {
+    const accessToken = Spotify.getAccessToken();
+    const fetchURL = `https://api.spotify.com/v1/albums/${id}/tracks`;
+    const headers = {headers: {Authorization: `Bearer ${accessToken}`}};
+
+    return fetch(fetchURL, headers)
+
+    .then(response => {
+      Spotify.handleErrors(response);
+      return response.json();
+    })
+
+    .then(jsonResponse => {
+      return jsonResponse.items.map(track => {
+        return {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: albumName,
+          uri: track.uri,
+          image: albumImage,
+          clickable: false
+        }
       })
+    })
   },
 
   savePlaylist(name, trackUris) {

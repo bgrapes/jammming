@@ -1,4 +1,5 @@
 import React from 'react';
+import Artwork from '../Artwork/Artwork';
 import './Track.css';
 
 class Track extends React.Component {
@@ -29,6 +30,7 @@ class Track extends React.Component {
   render() {
     return (
       <div className="Track">
+        <Artwork track={this.props.track} album={this.props.track.albumId} viewAlbum={this.props.viewAlbum} clickable={this.props.clickable} />
         <div className="Track-information">
           <h3>{this.props.track.name}</h3>
           <p>{this.props.track.artist} | {this.props.track.album}</p>
