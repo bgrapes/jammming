@@ -3,6 +3,9 @@ A project for demonstrating my new knowledge of React.
 
 Jammming is a web app that allows uers to search the Spotify library, create a custom playlist, and save the playlist to their Spotify account.
 
+[View Demo](http://jammming.bg.surge.sh).
+
+![Jammming project by Brian Grapes](project_screenshot.jpg)
 
 ## Features ##
 * Spotify login
@@ -16,5 +19,3 @@ Jammming is a web app that allows uers to search the Spotify library, create a c
 
 ## How to Run ##
 Run `npm start`.
-
-Or [view a deployment on Surge](http://jammming.bg.surge.sh).
